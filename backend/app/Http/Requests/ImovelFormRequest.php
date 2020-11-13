@@ -20,7 +20,7 @@ class ImovelFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'email_proprietario' => 'required',
+            'email_proprietario' => 'required|regex:/(.+)@(.+)\.(.+)/i',
             'rua' => 'required',
             'bairro' => 'required',
             'cidade' => 'required',

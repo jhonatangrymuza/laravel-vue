@@ -17,8 +17,8 @@ class CreateImovelsTable extends Migration
             $table->id();
             $table->string('email_proprietario');
             $table->string('rua');
-            $table->string('numero');
-            $table->string('complemento');
+            $table->string('numero')->nullable();
+            $table->string('complemento')->nullable();
             $table->string('bairro');
             $table->string('cidade');
             $table->string('estado');
