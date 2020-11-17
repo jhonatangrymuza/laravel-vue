@@ -120,20 +120,32 @@ export default {
    },
 
    salvar(){
+      Swal.fire(
+      'Salvando imovel',
+       '',
+       'info'
+      )
      if(!this.imovel.id){
         Imovels.salvar(this.imovel).then(resposta =>{
           this.imovel = {}
-            alert('Salvo com sucesso')
-            this.listar()
-            
+          Swal.fire(
+          'Cadastrado com sucesso',
+          '',
+          'success'
+          )
+          this.listar()
         }).catch(e=>{
           this.errors =e.response.data.errors;
           })
      }else{
         Imovels.atualizar(this.imovel).then(resposta =>{
           this.imovel = {}
-            alert('Atualizado com sucesso')
-            this.listar()
+          Swal.fire(
+            'Atualizado com sucesso',
+            '',
+            'success'
+          )
+          this.listar()
         }).catch(e=>{
           this.errors =e.response.data.errors;
           })
@@ -147,8 +159,17 @@ export default {
      },
 
      deletar(imovel){
+        Swal.fire(
+          'Deletando registro',
+          '',
+          'info'
+        )
         Imovels.deletar(imovel.id).then(resposta =>{
-            alert('Deletado com sucesso')
+            Swal.fire(
+              'Deletado com sucesso',
+              '',
+              'success'
+            )
             this.listar()
         })
       },
