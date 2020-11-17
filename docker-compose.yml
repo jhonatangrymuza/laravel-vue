@@ -29,12 +29,12 @@ services:
       - "80:8080"
     links:
       - mysql
-  frontend-app:
-    restart: always
-    build: .
-    volumes:
-      - ./frontend/:/app
-    working_dir: /app
-    ports:
-      - 3000:8080
-    command: ['yarn','serve']
+  # frontend-app:
+  #   restart: always
+  #   build: .
+  #   volumes:
+  #     - ./frontend/:/app
+  #   working_dir: /app
+  #   ports:
+  #     - 3000:8080
+  #   command: ['yarn','serve']

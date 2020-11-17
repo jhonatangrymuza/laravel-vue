@@ -14,8 +14,9 @@ class UpdateImovelsTable extends Migration
     public function up()
     {
         Schema::table('imovels', function (Blueprint $table) {
-            $table->boolean('contratado')
-            ->default(0)
+            // $table->boolean('contratado')
+            $table->string('status')->nullable()
+            ->default('Não contratado')
             ->after('estado');
         });
     }

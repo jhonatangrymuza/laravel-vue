@@ -9,6 +9,6 @@ class Imovel extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'email_proprietario', 'rua', 'numero', 'complemento', 'bairro', 'cidade', 'estado',
+        'email_proprietario', 'rua', 'numero', 'complemento', 'bairro', 'cidade', 'estado', 'status'
     ];
 }
