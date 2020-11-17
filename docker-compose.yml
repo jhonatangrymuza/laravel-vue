@@ -12,7 +12,7 @@ services:
     image: mysql:5.7
     container_name: test-mysql
     volumes:
-      - test-mysql-data:/var/lib/mysql
+      - ./database/db80:/var/lib/mysql:rw
     ports:
       - "3306:3306"
     environment:
@@ -30,10 +30,11 @@ services:
     links:
       - mysql
   frontend-app:
-    image: ambientum/node:11
-    container_name: frontend-app
-    command: yarn serve
+    restart: always
+    build: .
     volumes:
-      - ./frontend/:/var/www/app
+      - ./frontend/:/app
+    working_dir: /app
     ports:
-      - 8080:8080
+      - 3000:8080
+    command: ['yarn','serve']
