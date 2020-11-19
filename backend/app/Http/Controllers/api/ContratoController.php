@@ -16,7 +16,10 @@ class ContratoController extends Controller
      */
     public function index()
     {
-        return Contrato::all();
+        return  DB::table('contratos')
+            ->join('imovels', 'contratos.id', '=', 'imovels.id')
+            ->select('*')
+            ->get();
     }
 
     /**
@@ -70,10 +73,17 @@ class ContratoController extends Controller
             $contrato_existe = Contrato::where('id_imovel', $request->all()['id_imovel'])->first();
             $contrato = Contrato::FindOrFail($id);
 
-            if ($contrato_existe && ($contrato['id'] == $contrato_existe['id'])) {
+            if (!$contrato_existe) {
+
                 $contrato->update($request->all());
                 return response()->json("update contrato", 200);
-            } else {
+
+            } else if($contrato_existe && ($contrato['id'] == $contrato_existe['id'])){
+
+                $contrato->update($request->all());
+                return response()->json("update contrato", 200);
+
+            }else {
                 return response()->json(['message' => 'Já existe um contrato com esse imovel'], 404);
             }
         } catch (\Exception $e) {

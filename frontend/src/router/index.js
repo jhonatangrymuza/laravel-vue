@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "../views/Home.vue";
 import Imovel from "../views/Imovel.vue";
+import ContratoImovel from "../views/ContratoImovel";
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: "/imovel",
     name: "Imovel",
     component: Imovel,
+  },
+  {
+    path: "/ContratoImovel",
+    name: "Contratar Imovel",
+    component: ContratoImovel,
   },
 ];
 

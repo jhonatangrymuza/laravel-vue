@@ -1,19 +1,19 @@
 import { http } from './config';
 
 export default {
-    listar:() =>{
-        return http.get('imovel')
+    listar: async () =>{
+        return await http.get('imovel')
     },
 
-    salvar:(imovel) => {
-        return http.post('imovel',imovel)
+    salvar: async (imovel) => {
+        return await http.post('imovel',imovel)
     },
 
-    atualizar:(imovel) =>{
-        return http.put(`imovel/${imovel.id}`,imovel)
+    atualizar: async (imovel) =>{
+        return await http.put(`imovel/${imovel.id}`,imovel)
     },
 
-    deletar:(id) =>{
-        return http.delete(`imovel/${id}`)
+    deletar: async (id) =>{
+        return await http.delete(`imovel/${id}`)
     }
 }

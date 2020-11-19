@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/imovel">Cadastrar Imovel</router-link>
+      <router-link to="/imovel">Cadastrar Imovel</router-link> |
+      <router-link to="/ContratoImovel">Contratar Imovel</router-link>
     </div>
     <router-view />
   </div>
