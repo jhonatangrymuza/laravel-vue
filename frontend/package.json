@@ -9,7 +9,9 @@
   "dependencies": {
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
+    "v-mask": "^2.2.3",
     "vue": "^3.0.0",
+    "vue-jquery-mask": "^2.0.0",
     "vue-router": "^4.0.0-rc.3"
   },
   "devDependencies": {

@@ -17,8 +17,8 @@ class ContratoController extends Controller
     public function index()
     {
         return  DB::table('contratos')
-            ->join('imovels', 'contratos.id', '=', 'imovels.id')
-            ->select('*')
+            ->join('imovels', 'contratos.id_imovel', '=', 'imovels.id')
+            ->select('*','contratos.id as id_contrato')
             ->get();
     }
 
@@ -69,6 +69,8 @@ class ContratoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // $request = $request->except(['email_proprietario', 'rua', 'numero', 'complemento', 'bairro', 'cidade', 'estado', 'status']);
+
         try {
             $contrato_existe = Contrato::where('id_imovel', $request->all()['id_imovel'])->first();
             $contrato = Contrato::FindOrFail($id);

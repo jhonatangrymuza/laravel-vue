@@ -10,7 +10,7 @@ export default {
     },
 
     atualizar: async (contrato) =>{
-        return await http.put(`contrato/${contrato.id}`,contrato)
+        return await http.put(`contrato/${contrato.id_contrato}`,contrato)
     },
 
     deletar: async (id) =>{

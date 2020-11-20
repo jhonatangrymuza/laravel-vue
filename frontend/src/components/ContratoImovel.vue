@@ -28,7 +28,7 @@
 
          <label>Tipo de Pessoa</label>
             <div class="input-field col s12">
-              <select required v-model="contrato.tipo_pessoa" style="display: block !important">
+              <select id="tipodepessoa" required v-model="contrato.tipo_pessoa" style="display: block !important">
               <option value="" selected>Selecione</option>
               <option value="fisica">Fisica</option>
               <option value="juridica">Juridica</option>
@@ -36,7 +36,8 @@
             </div>
 
           <label>Documento</label>
-            <input type="text" id="documento" placeholder="Documento"  mask="###.###.###.###" v-model="contrato.documento" required>
+            <vue-mask class='tp-fisica' type="text" id="documento" placeholder="CPF" mask="###.###.###-##" maxlength="14" v-model="contrato.documento" required></vue-mask>
+            <vue-mask class='tp-juridica' type="text" id="documento" placeholder="CNPJ"  mask="##.###.###/####-##" maxlength="18" v-model="contrato.documento" required></vue-mask>
             
           <label>E-mail Contratante</label>
             <input type="email" placeholder="E-mail contratante"  v-model="contrato.email_contratante" required>
@@ -65,7 +66,7 @@
 
         <tbody>
 
-          <tr v-for="contrato of contratos" :key=contrato.id>
+          <tr v-for="contrato of contratos" :key=contrato.id_contrato>
 
             <td>{{ contrato.rua }}, Nº:{{ contrato.numero }}, {{ contrato.complemento }}, {{ contrato.bairro }}</td>
             <td>{{contrato.tipo_pessoa}}</td>
@@ -74,7 +75,7 @@
             <td>{{contrato.nome_completo}}</td>
             <td>
               <button @click='editar(contrato)' class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
-              <button @click='deletar(contrato)' class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
+              <button @click='deletar(contrato.id_contrato)' class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
             </td>
 
           </tr>
@@ -91,6 +92,7 @@
 <script>
 import ContratoImovel from '../../service/contratoImovel'
 import Imovels from '../../service/imovels'
+import vueMask from 'vue-jquery-mask';
 export default {
 
  data(){
@@ -104,10 +106,13 @@ export default {
     nome_completo:"",
    },
    contratos:[],
-  imovels:[],
+   imovels:[],
    errors:[]
    } 
  },
+     components: {
+      vueMask
+    },
 
  mounted(){
    this.listar();
@@ -169,18 +174,30 @@ export default {
      this.errors=[];
      },
 
-     editar(imovel){
-       this.contrato = imovel
+     editar(contrato){
+       this.contrato = contrato
        jQuery('.form-cliente').show();
+       if(contrato.tipo_pessoa === 'fisica'){
+         setTimeout(function(){ 
+           jQuery('.tp-fisica').show();
+           jQuery('.tp-juridica').hide();
+
+         }, 100);
+        }else if(contrato.tipo_pessoa === 'juridica'){
+          setTimeout(function(){ 
+            jQuery('.tp-fisica').hide();
+            jQuery('.tp-juridica').show();
+          }, 100);
+        }
      },
 
-     deletar(imovel){
+     deletar(contrato){
         Swal.fire(
           'Deletando registro',
           '',
           'info'
         )
-        ContratoImovel.deletar(imovel.id).then(resposta =>{
+        ContratoImovel.deletar(contrato).then(resposta =>{
             Swal.fire(
               'Deletado com sucesso',
               '',
@@ -331,4 +348,30 @@ function validaCpfCnpj(val) {
         return false;
     }
  }
+ $( document ).ready(function() {
+
+  jQuery('.tp-juridica').hide();
+  jQuery('#tipodepessoa').on('change', function() {
+    changetpessoa()
+
+    function changetpessoa(){
+      
+        var tp = jQuery('#tipodepessoa').val();
+        jQuery('.tp-fisica').val('');
+        jQuery('.tp-juridica').val('');
+        if(tp === 'fisica'){
+          setTimeout(function(){ 
+            jQuery('.tp-fisica').show();
+            jQuery('.tp-juridica').hide();
+
+          }, 100);
+        }else if(tp === 'juridica'){
+          setTimeout(function(){ 
+            jQuery('.tp-fisica').hide();
+            jQuery('.tp-juridica').show();
+          }, 100);
+        }
+      }
+  });
+});
  </script>
